@@ -34,4 +34,30 @@ class UserController extends Controller
 
         }
     }
+
+    function UserLogin(Request $request){
+        $count= User::where('email', '=', $request->input('email'))
+        ->where('password', '=', $request->input('password'))->count();
+
+        if($count==1) {
+            // User Login-> JWT Token issue korbo
+
+            $token = JWTToken::CreateToken($request->input('email'));
+
+            return response()->json([
+                'status' => 'Success',
+                'message' => 'User Authorized'
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'unauthorized',
+                'token' => $token,
+            ], 200);
+
+
+
+        }
+    }
 }
