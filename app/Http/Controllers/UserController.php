@@ -14,7 +14,7 @@ class UserController extends Controller
     function UserRegistration(Request $request){
 
         try {
-            User::create([
+              User::create([
                 'firstName' => $request->input('firstName'),
                 'lastName' => $request->input('lastName'),
                 'email' => $request->input('email'),
